@@ -9,6 +9,10 @@ import urllib.request
 import mediapipe as mp
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
+import logging
+from logger_config import setup_logger
+
+logger = setup_logger(__name__)
 
 class EmotionRecognizer:
     def __init__(self, model_path='model.pth', num_classes=4):
@@ -19,9 +23,9 @@ class EmotionRecognizer:
         if os.path.exists(model_path):
             self.model.load_state_dict(torch.load(model_path, map_location=self.device))
             self.model.eval()
-            print(f"Loaded model weights from {model_path} onto {self.device}")
+            logger.info(f"Loaded model weights from {model_path} onto {self.device}")
         else:
-            print(f"Warning: {model_path} not found. Using untrained weights.")
+            logger.warning(f"{model_path} not found. Using untrained weights.")
             
         # The 4 classes based on our setup_dataset.py logic
         self.classes = ['angry', 'happy', 'neutral', 'sad']
@@ -38,7 +42,7 @@ class EmotionRecognizer:
         self.mp_model_path = 'blaze_face_short_range.tflite'
         if not os.path.exists(self.mp_model_path):
             url = 'https://storage.googleapis.com/mediapipe-models/face_detector/blaze_face_short_range/float16/1/blaze_face_short_range.tflite'
-            print("Downloading MediaPipe Face Detection model...")
+            logger.info("Downloading MediaPipe Face Detection model...")
             urllib.request.urlretrieve(url, self.mp_model_path)
 
         # Initialize MediaPipe Face Detection using the new Tasks API
@@ -110,9 +114,9 @@ class EmotionRecognizer:
         return frame, predicted_emotion, confidence, face_img
 
 if __name__ == "__main__":
-    print("Testing Inference module...")
+    logger.info("Testing Inference module...")
     recognizer = EmotionRecognizer()
     # Create a dummy image
     dummy_img = np.zeros((480, 640, 3), dtype=np.uint8)
     processed_img, emotion, conf, _ = recognizer.process_frame(dummy_img)
-    print(f"Processed empty image. Output emotion: {emotion}")
+    logger.info(f"Processed empty image. Output emotion: {emotion}")

@@ -1,6 +1,10 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+import logging
+from logger_config import setup_logger
+
+logger = setup_logger(__name__)
 
 class SpatialAttention(nn.Module):
     def __init__(self):
@@ -48,4 +52,4 @@ if __name__ == "__main__":
     model = EmotionCNN_Attention(num_classes=4)
     dummy_input = torch.randn(8, 1, 48, 48) # Batch size 8, 1 channel, 48x48
     output = model(dummy_input)
-    print(f"Output shape: {output.shape}") # Expected: [8, 4]
+    logger.info(f"Output shape: {output.shape}") # Expected: [8, 4]

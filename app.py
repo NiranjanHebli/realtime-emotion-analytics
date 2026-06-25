@@ -6,8 +6,12 @@ import time
 import os
 from PIL import Image
 import av
+import logging
 from streamlit_webrtc import webrtc_streamer, VideoTransformerBase
 from inference import EmotionRecognizer
+from logger_config import setup_logger
+
+logger = setup_logger(__name__)
 
 # Set up page config
 st.set_page_config(page_title="Real-Time Emotion Analytics", layout="wide", page_icon="🎭")

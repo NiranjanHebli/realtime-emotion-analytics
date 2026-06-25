@@ -1,6 +1,10 @@
 import os
+import logging
 from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
+from logger_config import setup_logger
+
+logger = setup_logger(__name__)
 
 def get_dataloaders(data_dir='data', batch_size=64):
     """
@@ -49,7 +53,7 @@ if __name__ == "__main__":
     # Quick test to see if dataset is loaded correctly
     try:
         train_loader, test_loader = get_dataloaders()
-        print(f"Successfully loaded {len(train_loader.dataset)} training images.")
-        print(f"Successfully loaded {len(test_loader.dataset)} testing images.")
+        logger.info(f"Successfully loaded {len(train_loader.dataset)} training images.")
+        logger.info(f"Successfully loaded {len(test_loader.dataset)} testing images.")
     except Exception as e:
-        print(f"Error: {e}")
+        logger.error(f"Error: {e}")
