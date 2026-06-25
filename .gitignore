@@ -1,4 +1,4 @@
 project_docs/
 venv/
-data/
+/data/
 __pycache__/

@@ -1,26 +1,17 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
-import os
-from dataset import get_dataloaders
-from model import EmotionCNN_Attention
 import argparse
-import logging
-from logger_config import setup_logger
+from src.data.dataset import get_dataloaders
+from src.models.emotion_cnn import EmotionCNN_Attention
+from src.config.logger import setup_logger
+from src.config.settings import settings
 
 logger = setup_logger(__name__)
 
 def train_model(epochs=10, batch_size=64, learning_rate=0.001):
-    # Device configuration
-    if torch.backends.mps.is_available():
-        device = torch.device("mps")
-        logger.info("Using MPS (Metal Performance Shaders) for training.")
-    elif torch.cuda.is_available():
-        device = torch.device("cuda")
-        logger.info("Using CUDA for training.")
-    else:
-        device = torch.device("cpu")
-        logger.info("Using CPU for training.")
+    device = torch.device(settings.DEVICE)
+    logger.info(f"Using {device} for training.")
 
     # Load data
     logger.info("Loading data...")
@@ -45,12 +36,10 @@ def train_model(epochs=10, batch_size=64, learning_rate=0.001):
         for i, (images, labels) in enumerate(train_loader):
             images, labels = images.to(device), labels.to(device)
 
-            # Forward pass
+            optimizer.zero_grad()
             outputs = model(images)
             loss = criterion(outputs, labels)
-
-            # Backward and optimize
-            optimizer.zero_grad()
+            
             loss.backward()
             optimizer.step()
 
@@ -83,8 +72,8 @@ def train_model(epochs=10, batch_size=64, learning_rate=0.001):
         # Save best model
         if val_acc > best_acc:
             best_acc = val_acc
-            torch.save(model.state_dict(), 'model.pth')
-            logger.info(f"--> Saved new best model with accuracy: {best_acc:.2f}%")
+            torch.save(model.state_dict(), str(settings.MODEL_PATH))
+            logger.info(f"--> Saved new best model to {settings.MODEL_PATH} with accuracy: {best_acc:.2f}%")
 
     logger.info(f"Training complete. Best Validation Accuracy: {best_acc:.2f}%")
 
