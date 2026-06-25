@@ -4,8 +4,11 @@
 ![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=flat&logo=PyTorch&logoColor=white)
 ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B.svg?style=flat&logo=Streamlit&logoColor=white)
 ![MediaPipe](https://img.shields.io/badge/MediaPipe-00B2FF.svg?style=flat&logo=MediaPipe&logoColor=white)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://realtime-emotions-analytics.streamlit.app/)
 
 **Real-Time Emotion Analytics** is a next-generation emotion analytics system that leverages MediaPipe 3D Face Mesh and a Spatial Attention-based Convolutional Neural Network (CNN) to provide real-time facial expression recognition and continuous emotion journey tracking.
+
+ **Live Demo:**: [realtime-emotions-analytics.streamlit.app](https://realtime-emotions-analytics.streamlit.app/)
 
 ## Unique Features
 
