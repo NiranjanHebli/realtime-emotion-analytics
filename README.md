@@ -60,7 +60,24 @@ If you prefer not to use the automated `setup.sh` script or `uv`, you can manual
    ```bash
    python scripts/setup_dataset.py
    ```
-
 ## Data Preparation
 
 The `setup.sh` script automatically downloads and organizes the required Kaggle dataset (4 emotion classes: angry, happy, sad, neutral) using `kagglehub`. The images are placed into `data/train` and `data/test` folders so they are ready for PyTorch.
+
+## Running the Application
+
+To launch the real-time emotion analytics dashboard, run the following command from the project root:
+
+```bash
+python -m streamlit run src/ui/app.py
+```
+
+Ensure your virtual environment is active before running this command.
+
+## Future Scope
+
+- **Temporal Sequence Modeling**: Integrate recurrent networks (LSTMs) or Transformers to capture facial expression dynamics over time.
+- **Multi-Face Analytics**: Extend the system to detect and log concurrent session analytics for multiple people.
+- **Session Exporting**: Support exporting the live session metrics and distribution charts to PDF or CSV reports.
+- **Active Learning Integration**: Enable saving low-confidence classification frames to trigger model retraining.
+
