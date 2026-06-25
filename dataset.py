@@ -11,6 +11,7 @@ def get_dataloaders(data_dir='data', batch_size=64):
     
     # Advanced Data Augmentation for training
     train_transform = transforms.Compose([
+        transforms.Resize((48, 48)),
         transforms.Grayscale(num_output_channels=1),
         transforms.RandomApply([transforms.ColorJitter(brightness=0.2, contrast=0.2)], p=0.5), # Handle lighting changes
         transforms.RandomHorizontalFlip(),
@@ -21,6 +22,7 @@ def get_dataloaders(data_dir='data', batch_size=64):
 
     # Standard transformations for testing
     test_transform = transforms.Compose([
+        transforms.Resize((48, 48)),
         transforms.Grayscale(num_output_channels=1),
         transforms.ToTensor(),
         transforms.Normalize((0.5,), (0.5,))

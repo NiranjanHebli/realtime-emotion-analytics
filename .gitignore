@@ -1,3 +1,4 @@
 project_docs/
 venv/
 data/
+__pycache__/
