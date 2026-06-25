@@ -7,3 +7,5 @@ numpy
 matplotlib
 streamlit
 streamlit-webrtc
+opendatasets
+kagglehub
